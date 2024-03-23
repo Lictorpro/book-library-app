@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Books</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-segment (ionChange)="filterBooks($event)">
+    <ion-segment-button value="all" checked>
+      All
+    </ion-segment-button>
+    <ion-segment-button value="unread">
+      Unread
+    </ion-segment-button>
+    <ion-segment-button value="reading">
+      Reading
+    </ion-segment-button>
+    <ion-segment-button value="read">
+      Read
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-list lines="none">
+    <app-book-element *ngFor="let book of filteredBooks" [book]="book" [routerLink]="book.id"></app-book-element>
+  </ion-list>
+
+</ion-content>

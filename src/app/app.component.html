@@ -1,3 +1,32 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+
+  <ion-menu side="start" contentId="main">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Book Library</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list lines="none">
+        <ion-menu-toggle>
+          <ion-item routerLink="/books">
+            <ion-icon name="book" slot="start"></ion-icon>
+            <ion-label>My books</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item>
+            <ion-icon name="thumbs-up" slot="start"></ion-icon>
+            <ion-label>Recommendations</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-item>
+          <ion-icon name="log-out" slot="start"></ion-icon>
+          <ion-label>Log out</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>

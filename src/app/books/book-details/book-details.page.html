@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/books"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Book details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="ion-padding" [ngStyle]="{'border-bottom': 
+  book.status === 'read' ? '12px solid #30CB83' :
+  book.status === 'unread' ? '12px solid #E74C3C' :
+  book.status === 'reading' ? '12px solid #F1C40F' : 'none'}">
+    <img [src]="book.imageUrl">
+    <ion-card-header>
+      <ion-card-title>{{book.title}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col col-6>
+          <p><b>Author</b>: {{book.author}}</p>
+        </ion-col>
+        <ion-col col-6>
+          <p><b>Publisher</b>: {{book.publisher}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <p><b>Genre</b>: {{book.genre}}</p>
+        </ion-col>
+        <ion-col col-6>
+          <p><b>Pages</b>: {{book.pages}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p><b>Status</b>: {{book.status}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
