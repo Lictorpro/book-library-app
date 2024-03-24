@@ -5,41 +5,51 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col col-6>
-        <ion-item>
-          <ion-label position="floating">Name</ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-      </ion-col>
-      <ion-col col-6>
-        <ion-item>
-          <ion-label position="floating">Surname</ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-label position="floating">Email</ion-label>
-          <ion-input type="email"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-label position="floating">Password</ion-label>
-          <ion-input type="password"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-button type="submit" color="tertiary" expand="block" shape="round">Register</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label position="floating">Name</ion-label>
+            <ion-input type="text" ngModel name="name" required></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label position="floating">Surname</ion-label>
+            <ion-input type="text" ngModel name="surname" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="email" ngModel name="email" required email #email="ngModel"></ion-input>
+          </ion-item>
+          <ion-item lines="none" *ngIf="email.invalid && email.touched">
+            Should be a valid email address.
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" ngModel name="password" required minlength="7" #password="ngModel"></ion-input>
+          </ion-item>
+          <ion-item lines="none" *ngIf="password.invalid && password.touched">
+            Should be minimum 7 characters long.
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="tertiary" expand="block" shape="round"
+            [disabled]="registerForm.invalid">Register</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
 </ion-content>

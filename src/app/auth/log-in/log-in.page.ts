@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-log-in',
@@ -14,7 +15,7 @@ export class LogInPage implements OnInit {
   ngOnInit() {
   }
 
-  onLogIn() {
+  onLogIn(form: NgForm) {
     this.authService.logIn();
     this.router.navigateByUrl('/books');
   }

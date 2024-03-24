@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from './book.model';
 import { BooksService } from './books.service';
+import { ModalController } from '@ionic/angular';
+import { BookModalComponent } from './book-modal/book-modal.component';
 
 @Component({
   selector: 'app-books',
@@ -12,7 +14,7 @@ export class BooksPage implements OnInit {
   books: Book[] = [];
   filteredBooks: Book[] = [];
 
-  constructor(private booksService: BooksService) {
+  constructor(private booksService: BooksService, private modalCtrl: ModalController) {
     this.books = this.booksService.books;
     this.filteredBooks = [...this.books];
   }
@@ -27,6 +29,20 @@ export class BooksPage implements OnInit {
     } else {
       this.filteredBooks = this.books.filter(book => book.status === status);
     }
+  }
+
+  openModal() {
+    this.modalCtrl.create({
+      component: BookModalComponent,
+      componentProps: { title: 'Add book' }
+    }).then(modal => {
+      modal.present();
+      return modal.onDidDismiss();
+    }).then((resultData) => {
+      if (resultData.role === 'confirm') {
+        console.log(resultData);
+      }
+    });
   }
 
 }

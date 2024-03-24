@@ -5,26 +5,42 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-list>
-          <ion-item>
-            <ion-label position="floating">Email</ion-label>
-            <ion-input type="email"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating">Password</ion-label>
-            <ion-input type="password"></ion-input>
-          </ion-item>
-        </ion-list>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-button type="submit" color="tertiary" expand="block" shape="round" (click)="onLogIn()">Log in</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+
+  <form #logInForm="ngForm" (ngSubmit)="onLogIn(logInForm)">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-list>
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input type="email" ngModel name="email" required email #email="ngModel"></ion-input>
+            </ion-item>
+
+            <ion-item lines="none" *ngIf="email.invalid && email.touched">
+              Should be a valid email address.
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Password</ion-label>
+              <ion-input type="password" ngModel name="password" required minlength="7" #password="ngModel"></ion-input>
+            </ion-item>
+
+            <ion-item lines="none" *ngIf="password.invalid && password.touched">
+              Should be minimum 7 characters long.
+            </ion-item>
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="tertiary" expand="block" shape="round" [disabled]="logInForm.invalid">Log
+            in</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+
 
 </ion-content>

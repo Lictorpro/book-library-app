@@ -4,6 +4,11 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Books</ion-title>
+    <ion-buttons slot="end">
+      <ion-fab-button size="small" color="primary" (click)="openModal()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -25,7 +30,7 @@
   </ion-segment>
 
   <ion-list lines="none">
-    <app-book-element *ngFor="let book of filteredBooks" [book]="book" [routerLink]="book.id"></app-book-element>
+    <app-book-element *ngFor="let book of filteredBooks" [book]="book"></app-book-element>
   </ion-list>
 
 </ion-content>
