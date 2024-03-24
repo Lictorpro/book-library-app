@@ -10,14 +10,21 @@ import { NgForm } from '@angular/forms';
 })
 export class LogInPage implements OnInit {
 
+  isLoading: boolean = false;
+
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
 
   onLogIn(form: NgForm) {
-    this.authService.logIn();
-    this.router.navigateByUrl('/books');
+    this.isLoading = true;
+    this.authService.logIn(form.value).subscribe((resData) => {
+      console.log('Log IN uspesan');
+      console.log(resData);
+      this.isLoading = false;
+      this.router.navigateByUrl('/books');
+    });
   }
 
 }

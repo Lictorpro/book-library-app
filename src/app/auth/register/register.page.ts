@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../auth.service';
+import { LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -8,13 +11,22 @@ import { NgForm } from '@angular/forms';
 })
 export class RegisterPage implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService, private loadingCtrl: LoadingController, private router: Router) { }
 
   ngOnInit() {
   }
 
   onRegister(form: NgForm) {
-    console.log(form);
+    this.loadingCtrl.create({ message: 'Registering...' }).then(loadingEl => {
+      loadingEl.present();
+      this.authService.register(form.value).subscribe((resData) => {
+        console.log('Registracija uspesna');
+        console.log(resData);
+        loadingEl.dismiss();
+        this.router.navigateByUrl('/books');
+      });
+    })
+
   }
 
 }
