@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { User } from './user.model';
 
 interface AuthResponseData {
   kind: string;
@@ -25,11 +27,38 @@ interface UserData {
 export class AuthService {
 
   private _isUserAuthenticated = false;
+  private _user = new BehaviorSubject<User>(null);
 
   constructor(private http: HttpClient) { }
 
-  get isUserAuthenticated(): boolean {
-    return this._isUserAuthenticated;
+  get isUserAuthenticated() {
+    return this._user.asObservable().pipe(map((user) => {
+      if (user) {
+        return !!user.token;
+      } else {
+        return false;
+      }
+    }));
+  }
+
+  get userId() {
+    return this._user.asObservable().pipe(map((user) => {
+      if (user) {
+        return user.id;
+      } else {
+        return null;
+      }
+    }));
+  }
+
+  get token() {
+    return this._user.asObservable().pipe(map((user) => {
+      if (user) {
+        return user.token;
+      } else {
+        return null;
+      }
+    }));
   }
 
   register(user: UserData) {
@@ -40,6 +69,12 @@ export class AuthService {
         password: user.password,
         returnSecureToken: true
       }
+    ).pipe(
+      tap((userData) => {
+        const expirationDate = new Date(new Date().getTime() + +userData.expiresIn * 1000);
+        const user = new User(userData.localId, userData.email, userData.idToken, expirationDate);
+        this._user.next(user);
+      })
     );
   }
 
@@ -51,10 +86,16 @@ export class AuthService {
         password: user.password,
         returnSecureToken: true
       }
+    ).pipe(
+      tap((userData) => {
+        const expirationDate = new Date(new Date().getTime() + +userData.expiresIn * 1000);
+        const user = new User(userData.localId, userData.email, userData.idToken, expirationDate);
+        this._user.next(user);
+      })
     );
   }
 
   logOut() {
-    this._isUserAuthenticated = false;
+    this._user.next(null);
   }
 }

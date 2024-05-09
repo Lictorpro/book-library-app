@@ -1,10 +1,5 @@
-export interface Book {
-    id: string;
-    title: string;
-    author: string;
-    genre: string;
-    publisher: string;
-    pages: number;
-    status: string;
-    imageUrl: string;
+export class Book {
+
+    constructor(public id: string, public title: string, public author: string, public genre: string, public publisher: string, public pages: number, public status: string, public imageUrl: string, public userId: string, public recommendId: string) { }
+
 }

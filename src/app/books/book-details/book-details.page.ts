@@ -10,12 +10,15 @@ import { BooksService } from '../books.service';
 })
 export class BookDetailsPage implements OnInit {
 
-  book: Book = { id: "1", title: "It", author: "Stephen King", genre: "Horror", publisher: "Penguin books", pages: 1023, imageUrl: "https://prodimage.images-bn.com/pimages/9781501142970_p0_v3_s1200x630.jpg", status: "read" }
+  book: Book = <Book>{};
   constructor(private route: ActivatedRoute, private booksService: BooksService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(paramMap => {
-      this.book = this.booksService.getBook(paramMap.get('bookId'));
+      this.booksService.getBook(paramMap.get('bookId')).subscribe((book) => {
+        this.book = book;
+        console.log(book);
+      });
     })
   }
 

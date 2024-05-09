@@ -9,6 +9,8 @@ import { BooksPageRoutingModule } from './books-routing.module';
 import { BooksPage } from './books.page';
 import { BookElementComponent } from './book-element/book-element.component';
 import { BookModalComponent } from './book-modal/book-modal.component';
+import { RecommendationModalComponent } from '../recommendations/recommendation-modal/recommendation-modal.component';
+import { StatusModalComponent } from './status-modal/status-modal.component';
 
 @NgModule({
   imports: [
@@ -20,7 +22,9 @@ import { BookModalComponent } from './book-modal/book-modal.component';
   declarations: [
     BooksPage,
     BookElementComponent,
-    BookModalComponent
+    BookModalComponent,
+    RecommendationModalComponent,
+    StatusModalComponent
   ]
 })
 export class BooksPageModule { }

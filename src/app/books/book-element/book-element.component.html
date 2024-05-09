@@ -6,17 +6,20 @@
     <h1>{{book.title}}</h1>
     <p>{{book.author}}</p>
   </ion-label>
-  <ion-icon name="star-outline" slot="end"></ion-icon>
+  <ion-icon *ngIf="book.recommendId !== ''" name="star" slot="end" (click)="openModalEdit($event)" [ngStyle]="{'color': 
+  '#e6cc00'}"></ion-icon>
+  <ion-icon *ngIf="book.recommendId === ''" name="star" slot="end" (click)="openModal($event)" [ngStyle]="{'color': 
+  'grey'}"></ion-icon>
   <ion-icon name="ellipsis-vertical" slot="end" (click)="showOptions($event)" color="tertiary"></ion-icon>
   <ion-popover #popover [isOpen]="isOpen" (didDismiss)="isOpen = false">
     <ng-template>
       <ion-content class="ion-padding">
         <ion-list lines="none">
-          <ion-item [button]="true" [detail]="false"><ion-icon class="options-icon" name="repeat" item-start
-              color="tertiary"></ion-icon>
+          <ion-item [button]="true" [detail]="false" (click)="onChangeStatus()"><ion-icon class="options-icon"
+              name="repeat" item-start color="tertiary"></ion-icon>
             Change status</ion-item>
-          <ion-item [button]="true" [detail]="false"><ion-icon class="options-icon" name="create" item-start
-              color="tertiary"></ion-icon>Edit</ion-item>
+          <ion-item [button]="true" [detail]="false" (click)="onEditBook()"><ion-icon class="options-icon" name="create"
+              item-start color="tertiary"></ion-icon>Edit</ion-item>
           <ion-item [button]="true" [detail]="false" (click)="openAlert()"><ion-icon class="options-icon" name="trash"
               item-start color="tertiary"></ion-icon>Delete</ion-item>
         </ion-list>

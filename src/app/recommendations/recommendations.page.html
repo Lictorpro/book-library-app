@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/books"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Recommendations</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list lines="none">
+    <app-recommendation-element *ngFor="let bookExtended of booksExtended"
+      [bookExtended]="bookExtended"></app-recommendation-element>
+  </ion-list>
+
+</ion-content>

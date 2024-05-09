@@ -20,7 +20,13 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./auth/register/register.module').then(m => m.RegisterPageModule)
+  },
+  {
+    path: 'recommendations',
+    loadChildren: () => import('./recommendations/recommendations.module').then(m => m.RecommendationsPageModule),
+    canLoad: [AuthGuard]
   }
+
 
 
 ];

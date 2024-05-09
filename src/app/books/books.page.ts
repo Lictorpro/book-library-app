@@ -4,6 +4,7 @@ import { BooksService } from './books.service';
 import { ModalController } from '@ionic/angular';
 import { BookModalComponent } from './book-modal/book-modal.component';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-books',
@@ -15,8 +16,9 @@ export class BooksPage implements OnInit, OnDestroy {
   books: Book[] = [];
   filteredBooks: Book[] = [];
   private booksSub: Subscription;
+  userId: string;
 
-  constructor(private booksService: BooksService, private modalCtrl: ModalController) {
+  constructor(private booksService: BooksService, private modalCtrl: ModalController, private authService: AuthService) {
     //this.books = this.booksService.books;
 
   }
@@ -26,10 +28,13 @@ export class BooksPage implements OnInit, OnDestroy {
       this.books = books;
       this.filteredBooks = [...this.books];
     });
+
+    this.authService.userId.subscribe(userId => this.userId = userId)
+
   }
 
   ionViewWillEnter() {
-    this.booksService.getBooks().subscribe((books) => {
+    this.booksService.getBooks(this.userId).subscribe((books) => {
       //this.books = books;
       this.filteredBooks = [...this.books];
     });
@@ -54,7 +59,7 @@ export class BooksPage implements OnInit, OnDestroy {
     }).then((resultData) => {
       if (resultData.role === 'confirm') {
         console.log(resultData);
-        this.booksService.addBook(resultData.data.bookData.title, resultData.data.bookData.author, resultData.data.bookData.publisher, resultData.data.bookData.genre, resultData.data.bookData.pages, resultData.data.bookData.status)
+        this.booksService.addBook(resultData.data.bookData.title, resultData.data.bookData.author, resultData.data.bookData.publisher, resultData.data.bookData.genre, resultData.data.bookData.pages, resultData.data.bookData.status, "")
           .subscribe((books) => {
             //this.books = books;
             this.filteredBooks = [...this.books];

@@ -10,13 +10,14 @@
 </ion-header>
 
 <ion-content>
-  <form #addForm="ngForm" (ngSubmit)="onAddBook(addForm)">
+  <form #f="ngForm" (ngSubmit)="onSubmit()">
     <ion-grid>
       <ion-row>
         <ion-col>
           <ion-item>
             <ion-label position="floating">Title</ion-label>
-            <ion-input type="text" ngModel name="title" required></ion-input>
+            <ion-input type="text" ngModel name="title" required [(ngModel)]="bookTitle"
+              #titleInput="ngModel"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -24,7 +25,8 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating">Author</ion-label>
-            <ion-input type="text" ngModel name="author" required></ion-input>
+            <ion-input type="text" ngModel name="author" required [(ngModel)]="author"
+              #authorInput="ngModel"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -32,28 +34,40 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating">Publisher</ion-label>
-            <ion-input type="text" ngModel name="publisher"></ion-input>
+            <ion-input type="text" ngModel name="publisher" [(ngModel)]="publisher"
+              #publisherInput="ngModel"></ion-input>
           </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button color="tertiary" expand="block" shape="round" (click)="takePicture()">Upload image</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <img src="{{imageSource}}" style="width: 400px;" />
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col col-6>
           <ion-item>
             <ion-label position="floating">Genre</ion-label>
-            <ion-input type="text" ngModel name="genre"></ion-input>
+            <ion-input type="text" ngModel name="genre" [(ngModel)]="genre" #genreInput="ngModel"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-6>
           <ion-item>
             <ion-label position="floating">Pages</ion-label>
-            <ion-input type="number" ngModel name="pages"></ion-input>
+            <ion-input type="number" ngModel name="pages" [(ngModel)]="pages" #pagesInput="ngModel"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-select label="Status" label-placement="floating" ngModel name="status" required>
+            <ion-select label="Status" label-placement="floating" ngModel name="status" required [(ngModel)]="status"
+              #statusInput="ngModel">
               <ion-select-option value="unread" color="red">Unread</ion-select-option>
               <ion-select-option value="reading">Reading</ion-select-option>
               <ion-select-option value="read">Read</ion-select-option>
@@ -63,8 +77,8 @@
       </ion-row>
       <ion-row>
         <ion-col>
-          <ion-button type="submit" color="tertiary" expand="block" shape="round"
-            [disabled]="addForm.invalid">Add</ion-button>
+          <ion-button type="submit" color="tertiary" expand="block" shape="round" [disabled]="f.invalid">{{ mode
+            === 'add' ? 'Add' : 'Edit' }}</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>

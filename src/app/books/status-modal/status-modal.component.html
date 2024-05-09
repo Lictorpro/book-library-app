@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="onCancel()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #f="ngForm" (ngSubmit)="onSubmit()">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <!--<ion-select label="Status" label-placement="floating" ngModel name="status" required [(ngModel)]="status"
+              #statusInput="ngModel">
+              <ion-select-option value="unread" color="red">Unread</ion-select-option>
+              <ion-select-option value="reading">Reading</ion-select-option>
+              <ion-select-option value="read">Read</ion-select-option>
+            </ion-select>-->
+            <ion-radio-group ngModel name="status" required [(ngModel)]="status" #statusInput="ngModel">
+              <ion-radio value="unread" labelPlacement="end" justify="start">Unread</ion-radio><br />
+              <ion-radio value="reading" labelPlacement="end" justify="start">Reading</ion-radio><br />
+              <ion-radio value="read" labelPlacement="end" justify="start">Read</ion-radio><br />
+            </ion-radio-group>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="tertiary" expand="block" shape="round" [disabled]="f.invalid">Change
+            status</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
