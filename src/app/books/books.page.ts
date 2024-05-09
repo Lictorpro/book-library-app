@@ -59,7 +59,7 @@ export class BooksPage implements OnInit, OnDestroy {
     }).then((resultData) => {
       if (resultData.role === 'confirm') {
         console.log(resultData);
-        this.booksService.addBook(resultData.data.bookData.title, resultData.data.bookData.author, resultData.data.bookData.publisher, resultData.data.bookData.genre, resultData.data.bookData.pages, resultData.data.bookData.status, "")
+        this.booksService.addBook(resultData.data.bookData.title, resultData.data.bookData.author, resultData.data.bookData.publisher, resultData.data.bookData.genre, resultData.data.bookData.pages, resultData.data.bookData.status, "", resultData.data.bookData.imageUrl)
           .subscribe((books) => {
             //this.books = books;
             this.filteredBooks = [...this.books];

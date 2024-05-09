@@ -36,7 +36,7 @@ export class BooksService {
     return this._books.asObservable();
   }
 
-  addBook(title: string, author: string, publisher: string, genre: string, pages: number, status: string, recommendId: string) {
+  addBook(title: string, author: string, publisher: string, genre: string, pages: number, status: string, recommendId: string, imageUrl: string) {
 
     let generatedId;
     let newBook: Book;
@@ -51,7 +51,7 @@ export class BooksService {
       }),
       take(1),
       switchMap(token => {
-        newBook = new Book(null, title, author, genre, publisher, pages, status, 'https://prodimage.images-bn.com/pimages/9781501142970_p0_v3_s1200x630.jpg', fetchedUserId, recommendId);
+        newBook = new Book(null, title, author, genre, publisher, pages, status, imageUrl, fetchedUserId, recommendId);
         return this.http.post<{ name: string }>(`https://book-app-fon-nmr-default-rtdb.europe-west1.firebasedatabase.app/books.json?auth=${token}`, newBook);
       }),
       take(1),
@@ -76,7 +76,7 @@ export class BooksService {
         const books: Book[] = [];
         for (const key in booksData) {
           if (booksData.hasOwnProperty(key) && booksData[key].userId === userId) {
-            books.push(new Book(key, booksData[key].title, booksData[key].author, booksData[key].genre, booksData[key].publisher, booksData[key].pages, booksData[key].status, "https://prodimage.images-bn.com/pimages/9781501142970_p0_v3_s1200x630.jpg", booksData[key].userId, booksData[key].recommendId));
+            books.push(new Book(key, booksData[key].title, booksData[key].author, booksData[key].genre, booksData[key].publisher, booksData[key].pages, booksData[key].status, booksData[key].imageUrl, booksData[key].userId, booksData[key].recommendId));
           }
         }
         this._books.next(books);
@@ -98,7 +98,7 @@ export class BooksService {
         const books: Book[] = [];
         for (const key in booksData) {
           if (booksData.hasOwnProperty(key)) {
-            books.push(new Book(key, booksData[key].title, booksData[key].author, booksData[key].genre, booksData[key].publisher, booksData[key].pages, booksData[key].status, "https://prodimage.images-bn.com/pimages/9781501142970_p0_v3_s1200x630.jpg", booksData[key].userId, booksData[key].recommendId));
+            books.push(new Book(key, booksData[key].title, booksData[key].author, booksData[key].genre, booksData[key].publisher, booksData[key].pages, booksData[key].status, booksData[key].imageUrl, booksData[key].userId, booksData[key].recommendId));
           }
         }
         this._books.next(books);
@@ -175,7 +175,7 @@ export class BooksService {
           publisher,
           pages,
           status,
-          'https://prodimage.images-bn.com/pimages/9781501142970_p0_v3_s1200x630.jpg',
+          imageUrl,
           books[updatedBookIndex].userId,
           recommendId
         );

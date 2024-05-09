@@ -131,6 +131,7 @@ export class BookElementComponent implements OnInit {
         pages: this.book.pages,
         publisher: this.book.publisher,
         status: this.book.status,
+        imageUrl: this.book.imageUrl,
         mode: 'edit'
       }
 
@@ -139,6 +140,7 @@ export class BookElementComponent implements OnInit {
     modal.present();
 
     const { data, role } = await modal.onWillDismiss();
+    console.log('Data iz EDIRA');
     console.log(data);
 
     if (role === 'confirm') {
@@ -149,7 +151,7 @@ export class BookElementComponent implements OnInit {
           data.bookData.author,
           data.bookData.genre,
           data.bookData.publisher,
-          this.book.imageUrl,
+          data.bookData.imageUrl,
           data.bookData.pages,
           data.bookData.status,
           this.book.userId,
@@ -163,6 +165,7 @@ export class BookElementComponent implements OnInit {
           this.book.publisher = data.bookData.publisher;
           this.book.pages = +data.bookData.pages;
           this.book.status = data.bookData.status;
+          this.book.imageUrl = data.bookData.imageUrl;
         });
     }
 
@@ -181,6 +184,7 @@ export class BookElementComponent implements OnInit {
         pages: this.book.pages,
         publisher: this.book.publisher,
         status: this.book.status,
+        imageUrl: this.book.imageUrl,
         mode: 'edit'
       }
 

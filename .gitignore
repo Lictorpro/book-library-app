@@ -199,3 +199,8 @@ testem.log
 .DS_Store
 Thumbs.db
 >>>>>>> f3527c1 (Initial commit)
+
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json
